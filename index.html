@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Here Maps!</title>
+    <style>
+        #map{
+            width: 600px;
+            height: 600px;
+        }
+        .js-example-basic-single{
+          width: 100%;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Here Maps!</h1>
+    <div class="row">
+      <div class="col-sm-6">
+        <input type="text" id="origin">
+        <select class="selectOrigin" name="origin">
+          <option value="AL">Alabama</option>
+            ...
+          <option value="WY">Wyoming</option>
+        </select>
+      </div>
+      <div class="col-sm-6">
+        <input type="text" id="destino">
+        <select class="selectDestino" name="destino">
+          <option value="AL">Alabama</option>
+            ...
+          <option value="WY">Wyoming</option>
+        </select>
+      </div>
+    </div>
+    <div id="map"></div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+    <script src="https://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-places.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
+    
+    <script src="./index.js"></script>
+
+  </body>
+</html>
