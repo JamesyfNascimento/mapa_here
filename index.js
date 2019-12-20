@@ -1,20 +1,19 @@
 
 //Passo 1: inicializar a comunicação com a plataforma
-const APPLICATION_ID = '', APPLICATION_CODE = '';
+const APPLICATION_ID = '9IKWJvPCOqrJuARuXL9R', APPLICATION_CODE = 'HhuCO_32ROfaqdbGPjD4cA';
 const AUTOCOMPLETION_URL = 'https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
     ajaxRequest = new XMLHttpRequest(),
     query = '';
 
-const platform = new H.service.Platform({
-    "app_id" : APPLICATION_ID,
-    "app_code" : APPLICATION_CODE
-});
+var platform = new H.service.Platform({
+    'apikey': 'SF1615FZRvSWQoUFOdjJ'
+  });
 // localização porto alegre
 var portoAlegre = { lat: -30.055601, lng: -51.154826 };
 
 
 const geocoderService = platform.getGeocodingService();
-const search = new H.places.Search(platform.getPlacesService());
+// const search = new H.places.Search(platform.getPlacesService());
 const routerService = platform.getRoutingService();
 const origin = new H.map.Group();
 origin.id = "origin_id";
@@ -25,7 +24,7 @@ const defaultLayers = platform.createDefaultLayers();
 
 const map = new H.Map(
     document.getElementById("map"),
-    defaultLayers.normal.map,
+    defaultLayers.vector.normal.map,
     {
         zoom : 10,
         center : portoAlegre
@@ -151,23 +150,23 @@ const reverseGeocode = coords => {
     })
 }
 
-const places = (query, coords, radius) =>{
-    return new Promise((resolve, reject) => {
-        search.request(
-            {
-                q: query,
-                in: coords.Latitude + "," + coords.Longitude + ";r=" + radius
-            },
-            {},
-            success => {
-                resolve(success.results.items);
-            },
-            error => {
-                reject(error);
-            }
-        )
-    });
-}
+// const places = (query, coords, radius) =>{
+//     return new Promise((resolve, reject) => {
+//         search.request(
+//             {
+//                 q: query,
+//                 in: coords.Latitude + "," + coords.Longitude + ";r=" + radius
+//             },
+//             {},
+//             success => {
+//                 resolve(success.results.items);
+//             },
+//             error => {
+//                 reject(error);
+//             }
+//         )
+//     });
+// }
 
 const calculateRoute  = (start, finish) => {
     return new Promise((resolve, reject) => {
