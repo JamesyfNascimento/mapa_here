@@ -1,7 +1,7 @@
 
 //Passo 1: inicializar a comunicação com a plataforma
-const APPLICATION_KEY = 'SF1615FZRvSWQoUFOdjJ';
-const AUTOCOMPLETION_URL = 'https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
+const APPLICATION_KEY = '';
+const AUTOCOMPLETION_URL = 'https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json',
     ajaxRequest = new XMLHttpRequest();
 var query = '';
 
@@ -9,40 +9,40 @@ const platform = new H.service.Platform({
     'apikey': APPLICATION_KEY
   });
 // localização porto alegre
-// const portoAlegre = { lat: -30.055601, lng: -51.154826 };
+const portoAlegre = { lat: -30.055601, lng: -51.154826 };
 
 
-// const geocoderService = platform.getGeocodingService();
+const geocoderService = platform.getGeocodingService();
 // const search = new H.places.Search(platform.getPlacesService());
-// const routerService = platform.getRoutingService();
-// const origin = new H.map.Group();
-// origin.id = "origin_id";
-// const destination = new H.map.Group();
-// destination.id = "destination_id";
+const routerService = platform.getRoutingService();
+const origin = new H.map.Group();
+origin.id = "origin_id";
+const destination = new H.map.Group();
+destination.id = "destination_id";
 
-// const defaultLayers = platform.createDefaultLayers();
+const defaultLayers = platform.createDefaultLayers();
 
-// const map = new H.Map(
-//     document.getElementById("map"),
-//     defaultLayers.vector.normal.map,
-//     {
-//         zoom : 10,
-//         center : portoAlegre
-//     }
-// );
+const map = new H.Map(
+    document.getElementById("map"),
+    defaultLayers.vector.normal.map,
+    {
+        zoom : 10,
+        center : portoAlegre
+    }
+);
 
-// const mapEvents = new H.mapevents.MapEvents(map);
-// const behavior = new H.mapevents.Behavior(mapEvents);
+const mapEvents = new H.mapevents.MapEvents(map);
+const behavior = new H.mapevents.Behavior(mapEvents);
 
-// // Zoom, escala, tipo do mapa ...
-// var ui = H.ui.UI.createDefault(map, defaultLayers, 'pt-BR');
-// var mapSettings = ui.getControl('mapsettings');
-// var zoom = ui.getControl('zoom');
-// var scalebar = ui.getControl('scalebar');
+// Zoom, escala, tipo do mapa ...
+var ui = H.ui.UI.createDefault(map, defaultLayers, 'pt-BR');
+var mapSettings = ui.getControl('mapsettings');
+var zoom = ui.getControl('zoom');
+var scalebar = ui.getControl('scalebar');
 
-// mapSettings.setAlignment('top-left');
-// zoom.setAlignment('top-left');
-// scalebar.setAlignment('top-left');
+mapSettings.setAlignment('top-left');
+zoom.setAlignment('top-left');
+scalebar.setAlignment('top-left');
 
 
 
@@ -114,40 +114,40 @@ async function buildSugestion(data, seletor){
 };
 
 
-// const geocoder = locationId => {
-//     return new Promise((resolve, reject) => {
-//         geocoderService.geocode(
-//             {
-//                 locationId : locationId,
-//                 maxresults: 5
-//             },
-//             success => {
-//                 resolve(success.Response);
-//             },
-//             error => {
-//                 reject(error);
-//             }
-//         );
-//     })
-// }
+const geocoder = locationId => {
+    return new Promise((resolve, reject) => {
+        geocoderService.geocode(
+            {
+                locationId : locationId,
+                maxresults: 5
+            },
+            success => {
+                resolve(success.Response);
+            },
+            error => {
+                reject(error);
+            }
+        );
+    })
+}
 
-// const reverseGeocode = coords => {
-//     return new Promise((resolve, reject) => {
-//         geocoderService.reverseGeocode(
-//             {
-//                 prox: coords.Latitude + "," + coords.Longitude,
-//                 mode: "retrieveAddresses",
-//                 maxresults: 1
-//             },
-//             success => {
-//                 resolve(success);
-//             },
-//             error => {
-//                 reject(error);
-//             }
-//         )
-//     })
-// }
+const reverseGeocode = coords => {
+    return new Promise((resolve, reject) => {
+        geocoderService.reverseGeocode(
+            {
+                prox: coords.Latitude + "," + coords.Longitude,
+                mode: "retrieveAddresses",
+                maxresults: 1
+            },
+            success => {
+                resolve(success);
+            },
+            error => {
+                reject(error);
+            }
+        )
+    })
+}
 
 // const places = (query, coords, radius) =>{
 //     return new Promise((resolve, reject) => {
@@ -167,41 +167,41 @@ async function buildSugestion(data, seletor){
 //     });
 // }
 
-// const calculateRoute  = (start, finish) => {
-//     return new Promise((resolve, reject) => {
-//         const params = {
-//             mode: "fastest;car;traffic:enabled",
-//             waypoint0: start.Latitude + "," + start.Longitude,
-//             waypoint1: finish.Latitude + "," + finish.Longitude,
-//             representation: "display",
-//             maneuverattributes: 'direction,action',
-//             routeAttributes: "waypoints,summary,shape,legs"
-//         };
-//         routerService.calculateRoute(params, success => {
-//             resolve(success.response);
-//         }, error => {
-//             reject(error);
-//         });
-//     })
-// };
+const calculateRoute  = (start, finish) => {
+    return new Promise((resolve, reject) => {
+        const params = {
+            mode: "fastest;car;traffic:enabled",
+            waypoint0: start.Latitude + "," + start.Longitude,
+            waypoint1: finish.Latitude + "," + finish.Longitude,
+            representation: "display",
+            maneuverattributes: 'direction,action',
+            routeAttributes: "waypoints,summary,shape,legs"
+        };
+        routerService.calculateRoute(params, success => {
+            resolve(success.response);
+        }, error => {
+            reject(error);
+        });
+    })
+};
 
-// const calculateIsoline = (start, range) => {
-//     return new Promise((resolve, reject) => {
-//         const params = {
-//             start: start.Latitude + "," + start.Longitude,
-//             mode: "fastest;car;traffic:enabled",
-//             departure: "now",
-//             rangeType: "time",
-//             range: range
-//         };
-//         routerService.calculateIsoline(params, success => {
-//             resolve(success.response.isoline[0].component[0].shape);
-//         },
-//         error => {
-//             reject(error);
-//         });
-//     });
-// };
+const calculateIsoline = (start, range) => {
+    return new Promise((resolve, reject) => {
+        const params = {
+            start: start.Latitude + "," + start.Longitude,
+            mode: "fastest;car;traffic:enabled",
+            departure: "now",
+            rangeType: "time",
+            range: range
+        };
+        routerService.calculateIsoline(params, success => {
+            resolve(success.response.isoline[0].component[0].shape);
+        },
+        error => {
+            reject(error);
+        });
+    });
+};
 
 
 $(document).ready(function() {
@@ -209,159 +209,159 @@ $(document).ready(function() {
         autoComplete($(this).val(), ".selectOrigin");
     });
 
-//     $('.selectOrigin').on('change', async function() {
-//         origin.removeAll();
-//         let locationId = $(this).children("option:selected").data('locationid');
+    $('.selectOrigin').on('change', async function() {
+        origin.removeAll();
+        let locationId = $(this).children("option:selected").data('locationid');
         
-//         geocoder(locationId).then((data) => {
-//             let positionOrigin = data.View[0].Result[0].Location.DisplayPosition;
-//             $(this).children("option:selected").attr('data-latitude', positionOrigin.Latitude);
-//             $(this).children("option:selected").attr('data-longitude', positionOrigin.Longitude);
-//             map.setCenter({lat:positionOrigin.Latitude, lng:positionOrigin.Longitude});
-//             var parisPngIcon = new H.map.Icon("https://cdn3.iconfinder.com/data/icons/tourism/eiffel200.png", {size: {w: 56, h: 56}});
-//             // icone do market
-//             var iconOriginMarker = new H.map.Icon("./icon-marker-origin.png", {size: {w: 40, h: 40}});
+        geocoder(locationId).then((data) => {
+            let positionOrigin = data.View[0].Result[0].Location.DisplayPosition;
+            $(this).children("option:selected").attr('data-latitude', positionOrigin.Latitude);
+            $(this).children("option:selected").attr('data-longitude', positionOrigin.Longitude);
+            map.setCenter({lat:positionOrigin.Latitude, lng:positionOrigin.Longitude});
+            var parisPngIcon = new H.map.Icon("https://cdn3.iconfinder.com/data/icons/tourism/eiffel200.png", {size: {w: 56, h: 56}});
+            // icone do market
+            var iconOriginMarker = new H.map.Icon("./icon-marker-origin.png", {size: {w: 40, h: 40}});
       
-//             const originMarker = new H.map.Marker(
-//                 { 
-//                     lat: positionOrigin.Latitude, 
-//                     lng: positionOrigin.Longitude 
-//                 },{
-//                     icon: iconOriginMarker
-//                 }
+            const originMarker = new H.map.Marker(
+                { 
+                    lat: positionOrigin.Latitude, 
+                    lng: positionOrigin.Longitude 
+                },{
+                    icon: iconOriginMarker
+                }
                 
-//             );
-//             originMarker.addEventListener("tap", event => {
-//                 console.log(event.target.getPosition());
-//             });
-//             originMarker.id = "originMarker_id"
-//             const raioOrigin = new H.map.Circle(
-//                 {lat:positionOrigin.Latitude, lng:positionOrigin.Longitude},
-//                 1000,
-//                 {
-//                   style: {
-//                     strokeColor: 'rgba(55, 85, 170, 0.6)', // Color of the perimeter
-//                     lineWidth: 2,
-//                     fillColor: 'rgba(0, 128, 0, 0.7)'  // Color of the circle
-//                   }
-//                 }
-//               )
-//             raioOrigin.id = "radioOrigin_id";
-//             origin.addObjects([originMarker, raioOrigin]);
-//             map.addObjects([
-//                 origin
-//             ]);
+            );
+            originMarker.addEventListener("tap", event => {
+                console.log(event.target.getPosition());
+            });
+            originMarker.id = "originMarker_id"
+            const raioOrigin = new H.map.Circle(
+                {lat:positionOrigin.Latitude, lng:positionOrigin.Longitude},
+                1000,
+                {
+                  style: {
+                    strokeColor: 'rgba(55, 85, 170, 0.6)', // Color of the perimeter
+                    lineWidth: 2,
+                    fillColor: 'rgba(0, 128, 0, 0.7)'  // Color of the circle
+                  }
+                }
+              )
+            raioOrigin.id = "radioOrigin_id";
+            origin.addObjects([originMarker, raioOrigin]);
+            map.addObjects([
+                origin
+            ]);
 
-//             map.setViewBounds(origin.getBounds());
-//             map.setZoom(14);
+            map.setViewBounds(origin.getBounds());
+            map.setZoom(14);
 
-//             console.log(origin.getObjects())
-//             console.log(destination.getObjects())
+            console.log(origin.getObjects())
+            console.log(destination.getObjects())
 
-//         })
-//     });
+        })
+    });
     
 
-//    $('#destino').on('keyup', async function() {
-//         autoComplete($(this).val(), ".selectDestino");
-//     });
+   $('#destino').on('keyup', async function() {
+        autoComplete($(this).val(), ".selectDestino");
+    });
 
-//     $('.selectDestino').on('change', async function() {
-//         destination.removeAll();
-//         removeObjectById("routeLine_id");
-//         let locationId = $(this).children("option:selected").data('locationid');
-//         geocoder(locationId).then((data) => {
-//             let positionDestiny = data.View[0].Result[0].Location.DisplayPosition;
-//             console.log(positionDestiny);
-//             $(this).children("option:selected").attr('data-latitude', positionDestiny.Latitude);
-//             $(this).children("option:selected").attr('data-longitude', positionDestiny.Longitude);
-//             let latitudeOrigin = $('.selectOrigin').children("option:selected").data('latitude');
-//             let longitudeOrigin = $('.selectOrigin').children("option:selected").data('longitude');
-//             let positionOrigin = { Latitude: latitudeOrigin, Longitude: longitudeOrigin };
+    $('.selectDestino').on('change', async function() {
+        destination.removeAll();
+        removeObjectById("routeLine_id");
+        let locationId = $(this).children("option:selected").data('locationid');
+        geocoder(locationId).then((data) => {
+            let positionDestiny = data.View[0].Result[0].Location.DisplayPosition;
+            console.log(positionDestiny);
+            $(this).children("option:selected").attr('data-latitude', positionDestiny.Latitude);
+            $(this).children("option:selected").attr('data-longitude', positionDestiny.Longitude);
+            let latitudeOrigin = $('.selectOrigin').children("option:selected").data('latitude');
+            let longitudeOrigin = $('.selectOrigin').children("option:selected").data('longitude');
+            let positionOrigin = { Latitude: latitudeOrigin, Longitude: longitudeOrigin };
 
-//             var iconDestinyMarker = new H.map.Icon("./icon-marker-destiny.png", {size: {w: 40, h: 40}});
+            var iconDestinyMarker = new H.map.Icon("./icon-marker-destiny.png", {size: {w: 40, h: 40}});
 
-//             const destinyMarker = new H.map.Marker(
-//                 { 
-//                     lat: positionDestiny.Latitude, 
-//                     lng: positionDestiny.Longitude 
-//                 }, {
-//                     icon : iconDestinyMarker
-//                 }
-//             );
-//             destinyMarker.addEventListener("tap", event => {
-//                 console.log(event.target.getPosition());
-//             });
-//             destinyMarker.id = "destinyMarker_id";
-//             const destinyRadius = new H.map.Circle(
-//                 {lat:positionDestiny.Latitude, lng:positionDestiny.Longitude},
-//                 1000,
-//                 {
-//                 style: {
-//                     strokeColor: 'rgba(55, 85, 170, 0.6)', // Color of the perimeter
-//                     lineWidth: 2,
-//                     fillColor: 'rgba(0, 128, 0, 0.7)'  // Color of the circle
-//                 }
-//                 }
-//             )
-//             destinyRadius.id = "destinyRadius.id";
+            const destinyMarker = new H.map.Marker(
+                { 
+                    lat: positionDestiny.Latitude, 
+                    lng: positionDestiny.Longitude 
+                }, {
+                    icon : iconDestinyMarker
+                }
+            );
+            destinyMarker.addEventListener("tap", event => {
+                console.log(event.target.getPosition());
+            });
+            destinyMarker.id = "destinyMarker_id";
+            const destinyRadius = new H.map.Circle(
+                {lat:positionDestiny.Latitude, lng:positionDestiny.Longitude},
+                1000,
+                {
+                style: {
+                    strokeColor: 'rgba(55, 85, 170, 0.6)', // Color of the perimeter
+                    lineWidth: 2,
+                    fillColor: 'rgba(0, 128, 0, 0.7)'  // Color of the circle
+                }
+                }
+            )
+            destinyRadius.id = "destinyRadius.id";
 
-//             destination.addObjects([destinyMarker, destinyRadius]);
-//             map.addObjects([
-//                 destination
-//             ]);
+            destination.addObjects([destinyMarker, destinyRadius]);
+            map.addObjects([
+                destination
+            ]);
 
-//             calculateRoute(positionOrigin, positionDestiny).then((data) => {
-//                 console.log(data);
-//                 data = data.route[0].shape
-//                 const originToDestinationLineString = new H.geo.LineString();
-//                 data.forEach(points => {
-//                     let parts = points.split(",");
-//                     originToDestinationLineString.pushPoint({
-//                         lat: parts[0],
-//                         lng: parts[1]
-//                     })
-//                 });
+            calculateRoute(positionOrigin, positionDestiny).then((data) => {
+                console.log(data);
+                data = data.route[0].shape
+                const originToDestinationLineString = new H.geo.LineString();
+                data.forEach(points => {
+                    let parts = points.split(",");
+                    originToDestinationLineString.pushPoint({
+                        lat: parts[0],
+                        lng: parts[1]
+                    })
+                });
         
-//                 const routeLine = new H.map.Polyline(
-//                     originToDestinationLineString,
-//                     {
-//                         style: {
-//                             strokeColor: 'red',
-//                             lineWidth: 5
-//                         }
-//                     }
-//                 );
-//                 routeLine.id = "routeLine_id"
-//                 map.addObject(routeLine);
-//                 map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox()});
+                const routeLine = new H.map.Polyline(
+                    originToDestinationLineString,
+                    {
+                        style: {
+                            strokeColor: 'red',
+                            lineWidth: 5
+                        }
+                    }
+                );
+                routeLine.id = "routeLine_id"
+                map.addObject(routeLine);
+                map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox()});
                 
-//             });
+            });
 
-//             // ajuste no zoom 
-//             // $.each(origin.getObjects(), function( i, o ){
-//             //     $.each(destination.getObjects(), function( j, d ){
-//             //         if((i % 2 == 0 && j % 2 == 0)){
-//             //             let distance = o.getPosition().distance(d.getPosition());
-//             //             if(distance/1000 < 100){
-//             //               map.setZoom(8);  
-//             //             }else{
-//             //                 map.setZoom(4);  
-//             //             }
-//             //             console.log("Distancia :");
-//             //             console.log(distance/1000);
-//             //         }
-//             //     });
-//             // });
-//         })
+            // ajuste no zoom 
+            // $.each(origin.getObjects(), function( i, o ){
+            //     $.each(destination.getObjects(), function( j, d ){
+            //         if((i % 2 == 0 && j % 2 == 0)){
+            //             let distance = o.getPosition().distance(d.getPosition());
+            //             if(distance/1000 < 100){
+            //               map.setZoom(8);  
+            //             }else{
+            //                 map.setZoom(4);  
+            //             }
+            //             console.log("Distancia :");
+            //             console.log(distance/1000);
+            //         }
+            //     });
+            // });
+        })
 
-//     });
+    });
 });
 
-// function removeObjectById(id){
-//     for (object of map.getObjects()){
-//         if (object.id===id){
-//             map.removeObject(object);
-//         }
-//     }
-// }
+function removeObjectById(id){
+    for (object of map.getObjects()){
+        if (object.id===id){
+            map.removeObject(object);
+        }
+    }
+}
